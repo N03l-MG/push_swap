@@ -21,17 +21,17 @@ void push_swap(t_list **a, t_list **b)
 t_list *ps_quicksort(t_list **a, t_list **b)
 {
 	if (!a || !*a || !(*a)->next)
-        return *a;
-    int length = ft_lstsize(*a);
-    int pivot = find_pivot(*a, length);
+		return *a;
+	int length = ft_lstsize(*a);
+	int pivot = find_pivot(*a, length);
 
-    divide(a, b, pivot);
-    ps_quicksort(a, b);
-    ps_quicksort(b, a);
+	divide(a, b, pivot);
+	ps_quicksort(a, b);
+	ps_quicksort(b, a);
 
-    while (*b)
-        pa(a, b);
-    return *a;
+	while (*b)
+		pa(a, b);
+	return *a;
 }
 
 int find_pivot(t_list *list, int length)
@@ -84,8 +84,8 @@ void divide(t_list **a, t_list **b, int pivot)
 		else
 		{
 			ra(a);
-            if ((*a) && (*a)->next && *((int *)(*a)->content) > *((int *)(*a)->next->content))
-                sa(a);
+				if ((*a) && (*a)->next && *((int *)(*a)->content) > *((int *)(*a)->next->content))
+					sa(a);
 		}
 		i++;
 	}
