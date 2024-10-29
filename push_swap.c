@@ -1,28 +1,37 @@
 #include "push_swap.h"
 
-void push_swap(t_list **a, t_list **b);
-
 int	main(char *argv[], int argc)
 {
 	t_list *a;
 	t_list *b;
-
+	// input parsing crap
 	push_swap(a, b);
 }
 
 void push_swap(t_list **a, t_list **b)
 {
 	bool is_sorted = false;
-
-	while (!is_sorted)
+	// loop that checks if sorted
+	if (!is_sorted)
 	{
-		// sorting algorithm using operations
+		ps_quicksort(a, b);
 	}
 }
 
-t_list ps_quicksort(t_list **a, t_list **b)
+t_list *ps_quicksort(t_list **a, t_list **b)
 {
-	int pivot = find_pivot(a, ft_lstsize(a));
+	if (!a || !*a || !(*a)->next)
+        return *a;
+    int length = ft_lstsize(*a);
+    int pivot = find_pivot(*a, length);
+
+    divide(a, b, pivot);
+    ps_quicksort(a, b);
+    ps_quicksort(b, a);
+
+    while (*b)
+        pa(a, b);
+    return *a;
 }
 
 int find_pivot(t_list *list, int length)
@@ -63,15 +72,21 @@ int find_pivot(t_list *list, int length)
 
 void divide(t_list **a, t_list **b, int pivot)
 {
-	t_list *current = *a;
-	int value;
+	int size;
+	int i;
 
-	while (current)
+	i = 0;
+	size = ft_lstsize(*a);
+	while (i < size)
 	{
-		value = *((int *)current->content);
-		if (value < pivot)
+		if (*((int *)(*a)->content) < pivot)
 			pb(a, b);
 		else
-			current = current->next;
+		{
+			ra(a);
+            if ((*a) && (*a)->next && *((int *)(*a)->content) > *((int *)(*a)->next->content))
+                sa(a);
+		}
+		i++;
 	}
 }
