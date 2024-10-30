@@ -7,8 +7,9 @@ static void ps_quicksort(t_list **a, t_list **b);
 static int find_pivot(t_list *list, int length);
 static int *bubble(int *values, int length);
 static void divide(t_list **a, t_list **b, int pivot);
+static void print_list(t_list *list);
 
-int	main(int argc, char *argv[])
+	 int main(int argc, char *argv[])
 {
 	t_list *a = NULL;
 	t_list *b = NULL;
@@ -17,7 +18,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	input = argv[1];
 	parse_input(input, &a);
-	push_swap(&a, &b);
+	ps_quicksort(&a, &b);
 	while (a)
 	{
 		ft_printf("%d ", *((int *)a->content));
@@ -49,21 +50,16 @@ static void	parse_input(const char *input, t_list **a)
 		}
 		*((int *)new->content) = value;
 		ft_lstadd_back(a, new);
+		ft_printf("input %d\n", *((int *)new->content));
 		free(strings[i]);
 		i++;
 	}
 	free(strings);
 }
 
-static void push_swap(t_list **a, t_list **b)
-{
-	if (is_sorted(*a))
-		return ;
-	ps_quicksort(a, b);
-}
-
 static bool is_sorted(t_list *a)
 {
+	ft_printf("sort check\n");
 	while (a && a->next)
 	{
 		if (*((int *)a->content) > *((int *)a->next->content))
@@ -75,12 +71,16 @@ static bool is_sorted(t_list *a)
 
 static void ps_quicksort(t_list **a, t_list **b)
 {
+	ft_printf("quicksort recurr\n");
+	if (is_sorted(*a))
+		return;
 	if (!a || !*a || !(*a)->next)
-		return ;
+		return;
 	int length = ft_lstsize(*a);
 	int pivot = find_pivot(*a, length);
 
 	divide(a, b, pivot);
+	//sleep(1);
 	ps_quicksort(a, b);
 	ps_quicksort(b, a);
 
@@ -104,11 +104,13 @@ static int find_pivot(t_list *list, int length)
 	values = bubble(values, length);
 	pivot = values[length / 2];
 	free(values);
+	ft_printf("pivot: %d\n", pivot);
 	return pivot;
 }
 
 static int *bubble(int *values, int length)
 {
+	ft_printf("bubble\n");
 	int i = 0;
 	int j = 0;
 	int temp = 0;
@@ -133,6 +135,7 @@ static int *bubble(int *values, int length)
 
 static void divide(t_list **a, t_list **b, int pivot)
 {
+	ft_printf("ra\n");
 	int size;
 	int i;
 	int rotations = 0;
@@ -141,6 +144,7 @@ static void divide(t_list **a, t_list **b, int pivot)
 	size = ft_lstsize(*a);
 	while (i < size)
 	{
+		ft_printf("%d", *((int *)(*a)->content));
 		if (*((int *)(*a)->content) < pivot)
 		{
 			pb(a, b);
@@ -149,10 +153,20 @@ static void divide(t_list **a, t_list **b, int pivot)
 		else
 		{
 			ra(a);
+			print_list(*a);
 			rotations++;
 			if (rotations >= size)
 				break ;
 		}
 		i++;
+	}
+}
+
+static void print_list(t_list *list)
+{
+	while (list)
+	{
+		ft_printf("list item: %d\n", *((int *)list->content));
+		list = list->next;
 	}
 }

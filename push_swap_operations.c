@@ -76,9 +76,9 @@ void ra(t_list **a)
 		first = *a;
 		*a = first->next;
 		first->next = NULL;
-		ft_lstadd_front(a, first);
+		ft_lstadd_back(a, first);
+		ft_printf("ra\n");
 	}
-	ft_printf("ra\n");
 }
 
 // Rotates B forward
@@ -91,7 +91,7 @@ void rb(t_list **b)
 		first = *b;
 		*b = first->next;
 		first->next = NULL;
-		ft_lstadd_front(b, first);
+		ft_lstadd_back(b, first);
 	}
 	ft_printf("rb\n");
 }
@@ -121,7 +121,7 @@ void rra(t_list **a)
 		}
 		if (previous)
 			previous->next = NULL;
-		ft_lstadd_back(a, current);
+		ft_lstadd_front(a, current);
 	}
 	ft_printf("rra\n");
 }
@@ -143,7 +143,7 @@ void rrb(t_list **b)
 		}
 		if (previous)
 			previous->next = NULL;
-		ft_lstadd_back(b, current);
+		ft_lstadd_front(b, current);
 	}
 	ft_printf("rrb\n");
 }
