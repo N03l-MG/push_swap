@@ -14,7 +14,7 @@ void sa(t_list **a)
 		second->next = first;
 		*a = second;
 	}
-	ft_printf("sa");
+	ft_printf("sa\n");
 }
 
 // Swaps first two in B
@@ -31,7 +31,7 @@ void sb(t_list **b)
 		second->next = first;
 		*b = second;
 	}
-	ft_printf("sb");
+	ft_printf("sb\n");
 }
 
 // Simultaneous swaps
@@ -39,7 +39,7 @@ void ss(t_list **a, t_list **b)
 {
 	sa(a);
 	sb(b);
-	ft_printf("ss");
+	ft_printf("ss\n");
 }
 
 // Pushes first element from B to A
@@ -51,7 +51,7 @@ void pa(t_list **a, t_list **b)
 	*b = (*b)->next;
 	first->next = *a;
 	*a = first;
-	ft_printf("pa");
+	ft_printf("pa\n");
 }
 
 // Pushes first element from A to B
@@ -63,7 +63,7 @@ void pb(t_list **a, t_list **b)
 	*a = (*a)->next;
 	first->next = *b;
 	*b = first;
-	ft_printf("pb");
+	ft_printf("pb\n");
 }
 
 // Rotates A forward
@@ -78,7 +78,7 @@ void ra(t_list **a)
 		first->next = NULL;
 		ft_lstadd_front(a, first);
 	}
-	ft_printf("ra");
+	ft_printf("ra\n");
 }
 
 // Rotates B forward
@@ -93,7 +93,7 @@ void rb(t_list **b)
 		first->next = NULL;
 		ft_lstadd_front(b, first);
 	}
-	ft_printf("rb");
+	ft_printf("rb\n");
 }
 
 // Simultaneous forward rotations
@@ -101,7 +101,7 @@ void rr(t_list **a, t_list **b)
 {
 	ra(a);
 	rb(b);
-	ft_printf("rr");
+	ft_printf("rr\n");
 }
 
 // Rotates A backward
@@ -123,7 +123,7 @@ void rra(t_list **a)
 			previous->next = NULL;
 		ft_lstadd_back(a, current);
 	}
-	ft_printf("rra");
+	ft_printf("rra\n");
 }
 
 // Rotates B backward
@@ -145,7 +145,7 @@ void rrb(t_list **b)
 			previous->next = NULL;
 		ft_lstadd_back(b, current);
 	}
-	ft_printf("rrb");
+	ft_printf("rrb\n");
 }
 
 // Simultaneous backward rotations
@@ -153,5 +153,5 @@ void rrr(t_list **a, t_list **b)
 {
 	rra(a);
 	rrb(b);
-	ft_printf("rrr");
+	ft_printf("rrr\n");
 }

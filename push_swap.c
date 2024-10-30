@@ -1,27 +1,82 @@
 #include "push_swap.h"
 
-int	main(char *argv[], int argc)
-{
-	t_list *a;
-	t_list *b;
-	// input parsing crap
-	push_swap(a, b);
-}
+static void	parse_input(const char *input, t_list **a);
+static void push_swap(t_list **a, t_list **b);
+static bool is_sorted(t_list *a);
+static void ps_quicksort(t_list **a, t_list **b);
+static int find_pivot(t_list *list, int length);
+static int *bubble(int *values, int length);
+static void divide(t_list **a, t_list **b, int pivot);
 
-void push_swap(t_list **a, t_list **b)
+int	main(int argc, char *argv[])
 {
-	bool is_sorted = false;
-	// loop that checks if sorted
-	if (!is_sorted)
+	t_list *a = NULL;
+	t_list *b = NULL;
+	const char *input;
+	if (argc < 2)
+		return (1);
+	input = argv[1];
+	parse_input(input, &a);
+	push_swap(&a, &b);
+	while (a)
 	{
-		ps_quicksort(a, b);
+		ft_printf("%d ", *((int *)a->content));
+		a = a->next;
 	}
+	ft_printf("\n");
+	return (0);
 }
 
-t_list *ps_quicksort(t_list **a, t_list **b)
+static void	parse_input(const char *input, t_list **a)
+{
+	int value;
+	char **strings;
+	int i = 0;
+	int j = 0;
+	t_list *new;
+
+	strings = ft_split(input, ' ');
+	while (strings[i] != NULL)
+	{
+		value = ft_atoi(strings[i]);
+		new = ft_lstnew(malloc(sizeof(int)));
+		if (!new)
+		{
+			for (int j = 0; j < i; j++)
+                free(strings[j]);
+            free(strings);
+			return;
+		}
+		*((int *)new->content) = value;
+		ft_lstadd_back(a, new);
+		free(strings[i]);
+		i++;
+	}
+	free(strings);
+}
+
+static void push_swap(t_list **a, t_list **b)
+{
+	if (is_sorted(*a))
+		return ;
+	ps_quicksort(a, b);
+}
+
+static bool is_sorted(t_list *a)
+{
+	while (a && a->next)
+	{
+		if (*((int *)a->content) > *((int *)a->next->content))
+			return false;
+		a = a->next;
+	}
+	return true;
+}
+
+static void ps_quicksort(t_list **a, t_list **b)
 {
 	if (!a || !*a || !(*a)->next)
-		return *a;
+		return ;
 	int length = ft_lstsize(*a);
 	int pivot = find_pivot(*a, length);
 
@@ -31,15 +86,12 @@ t_list *ps_quicksort(t_list **a, t_list **b)
 
 	while (*b)
 		pa(a, b);
-	return *a;
 }
 
-int find_pivot(t_list *list, int length)
+static int find_pivot(t_list *list, int length)
 {
 	int *values = malloc(length * sizeof(int));
 	int i = 0;
-	int j = 0;
-	int temp = 0;
 	t_list *current = list;
 	int pivot = 0;
 
@@ -49,7 +101,18 @@ int find_pivot(t_list *list, int length)
 		current = current->next;
 		i++;
 	}
-	i = 0;
+	values = bubble(values, length);
+	pivot = values[length / 2];
+	free(values);
+	return pivot;
+}
+
+static int *bubble(int *values, int length)
+{
+	int i = 0;
+	int j = 0;
+	int temp = 0;
+
 	while (i < length - 1)
 	{
 		j = i + 1;
@@ -65,27 +128,30 @@ int find_pivot(t_list *list, int length)
 		}
 		i++;
 	}
-	pivot = values[length / 2];
-	free(values);
-	return pivot;
+	return (values);
 }
 
-void divide(t_list **a, t_list **b, int pivot)
+static void divide(t_list **a, t_list **b, int pivot)
 {
 	int size;
 	int i;
+	int rotations = 0;
 
 	i = 0;
 	size = ft_lstsize(*a);
 	while (i < size)
 	{
 		if (*((int *)(*a)->content) < pivot)
+		{
 			pb(a, b);
+			rotations = 0;
+		}
 		else
 		{
 			ra(a);
-				if ((*a) && (*a)->next && *((int *)(*a)->content) > *((int *)(*a)->next->content))
-					sa(a);
+			rotations++;
+			if (rotations >= size)
+				break ;
 		}
 		i++;
 	}
