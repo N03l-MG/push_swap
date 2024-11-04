@@ -6,15 +6,15 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:37:15 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/28 11:30:09 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/04 11:15:25 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstclear(t_stack **lst, void (*del)(void *))
 {
-	t_list	*temp;
+	t_stack	*temp;
 
 	while (*lst)
 	{

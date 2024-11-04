@@ -1,120 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/01 13:05:45 by nmonzon           #+#    #+#             */
+/*   Updated: 2024/11/04 15:55:22 by nmonzon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-static void	parse_input(const char *input, t_list **a);
-static void push_swap(t_list **a, t_list **b);
-static bool is_sorted(t_list *a);
-static void ps_quicksort(t_list **a, t_list **b);
-static int find_pivot(t_list *list, int length);
-static int *bubble(int *values, int length);
-static void divide(t_list **a, t_list **b, int pivot);
-static void print_list(t_list *list);
+static void	parse_input(const char *input, t_stack **a);
+static void	assign_ranks(t_stack *a);
+static int	*bubble(int *values, int length);
+static void	shift_to_top(t_stack **a, int rank, int *ops);
+static bool	is_sorted(t_stack *a);
+static void	push_swap_sort(t_stack **a, t_stack **b, int *ops);
+static void	print_stacks(t_stack *a, t_stack *b);
 
-	 int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_list *a = NULL;
-	t_list *b = NULL;
-	const char *input;
+	t_stack		*a;
+	t_stack		*b;
+	const char	*input;
+	int			ops;
+
+	a = NULL;
+	b = NULL;
+	ops = 0;
 	if (argc < 2)
 		return (1);
 	input = argv[1];
 	parse_input(input, &a);
-	ps_quicksort(&a, &b);
+	push_swap_sort(&a, &b, &ops);
+	ft_printf("Output:\n");
 	while (a)
 	{
 		ft_printf("%d ", *((int *)a->content));
 		a = a->next;
 	}
-	ft_printf("\n");
+	ft_printf("\nTotal: %d\n", ops);
 	return (0);
 }
 
-static void	parse_input(const char *input, t_list **a)
+// Read user input and populate stack A
+static void	parse_input(const char *input, t_stack **a)
 {
-	int value;
-	char **strings;
-	int i = 0;
-	int j = 0;
-	t_list *new;
+	int		value;
+	char	**strings;
+	int		i;
+	int		j;
+	t_stack	*new;
 
+	i = 0;
+	j = 0;
 	strings = ft_split(input, ' ');
+	ft_printf("Input:\n");
 	while (strings[i] != NULL)
 	{
 		value = ft_atoi(strings[i]);
 		new = ft_lstnew(malloc(sizeof(int)));
 		if (!new)
 		{
-			for (int j = 0; j < i; j++)
-                free(strings[j]);
-            free(strings);
-			return;
+			while (j < i)
+				free(strings[j]);
+			free(strings);
+			return ;
 		}
 		*((int *)new->content) = value;
 		ft_lstadd_back(a, new);
-		ft_printf("input %d\n", *((int *)new->content));
+		ft_printf("%d ", *((int *)new->content));
 		free(strings[i]);
 		i++;
 	}
+	ft_printf("\n");
 	free(strings);
 }
 
-static bool is_sorted(t_list *a)
+// Simple sort to determine ranks
+static int	*bubble(int *values, int length)
 {
-	ft_printf("sort check\n");
-	while (a && a->next)
-	{
-		if (*((int *)a->content) > *((int *)a->next->content))
-			return false;
-		a = a->next;
-	}
-	return true;
-}
+	int	i;
+	int	j;
+	int	temp;
 
-static void ps_quicksort(t_list **a, t_list **b)
-{
-	ft_printf("quicksort recurr\n");
-	if (is_sorted(*a))
-		return;
-	if (!a || !*a || !(*a)->next)
-		return;
-	int length = ft_lstsize(*a);
-	int pivot = find_pivot(*a, length);
-
-	divide(a, b, pivot);
-	//sleep(1);
-	ps_quicksort(a, b);
-	ps_quicksort(b, a);
-
-	while (*b)
-		pa(a, b);
-}
-
-static int find_pivot(t_list *list, int length)
-{
-	int *values = malloc(length * sizeof(int));
-	int i = 0;
-	t_list *current = list;
-	int pivot = 0;
-
-	while (current && i < length)
-	{
-		values[i] = *((int *)current->content);
-		current = current->next;
-		i++;
-	}
-	values = bubble(values, length);
-	pivot = values[length / 2];
-	free(values);
-	ft_printf("pivot: %d\n", pivot);
-	return pivot;
-}
-
-static int *bubble(int *values, int length)
-{
-	ft_printf("bubble\n");
-	int i = 0;
-	int j = 0;
-	int temp = 0;
-
+	i = 0;
+	j = 0;
+	temp = 0;
 	while (i < length - 1)
 	{
 		j = i + 1;
@@ -133,40 +107,111 @@ static int *bubble(int *values, int length)
 	return (values);
 }
 
-static void divide(t_list **a, t_list **b, int pivot)
+// Assigns ranks after parsing the input
+static void	assign_ranks(t_stack *a)
 {
-	ft_printf("ra\n");
-	int size;
-	int i;
-	int rotations = 0;
+	int		length;
+	t_stack	*temp;
+	int		*values;
+	int		i;
+	int		rank;
 
+	temp = a;
 	i = 0;
-	size = ft_lstsize(*a);
-	while (i < size)
+	rank = 0;
+	length = ft_lstsize(temp);
+	values = malloc(sizeof(int) * length);
+	if (!values)
+		return ;
+	while (i < length)
 	{
-		ft_printf("%d", *((int *)(*a)->content));
-		if (*((int *)(*a)->content) < pivot)
-		{
-			pb(a, b);
-			rotations = 0;
-		}
-		else
-		{
-			ra(a);
-			print_list(*a);
-			rotations++;
-			if (rotations >= size)
-				break ;
-		}
-		i++;
+		values[i++] = *((int *)temp->content);
+		temp = temp->next;
+	}
+	bubble(values, length);
+	temp = a;
+	while (temp)
+	{
+		rank = 0;
+		while (rank < length && values[rank] != *((int *)temp->content))
+			rank++;
+		temp->rank = rank;
+		temp = temp->next;
+	}
+	free(values);
+}
+
+// Uses smart rotation to shift the next rank to the top of A
+static void	shift_to_top(t_stack **a, int rank, int *ops)
+{
+	t_stack	*current;
+	int		position;
+	int		len;
+
+	position = 0;
+	current = *a;
+	while (current)
+	{
+		if (current->rank == rank)
+			break ;
+		current = current->next;
+		position++;
+	}
+	current = *a;
+	len = ft_lstsize(current);
+	if (position <= len / 2)
+	{
+		for (int i = 0; i < position; i++)
+			ra(a, ops);
+	}
+	else
+	{
+		for (int i = 0; i < len - position; i++)
+			rra(a, ops);
 	}
 }
 
-static void print_list(t_list *list)
+// Checks if the stack is sorted
+static bool	is_sorted(t_stack *a)
 {
-	while (list)
+	while (a && a->next)
 	{
-		ft_printf("list item: %d\n", *((int *)list->content));
-		list = list->next;
+		if (*((int *)a->content) > *((int *)a->next->content))
+			return (false);
+		a = a->next;
 	}
+	return (true);
 }
+
+// Main algorithm function
+static void	push_swap_sort(t_stack **a, t_stack **b, int *ops)
+{
+	int	next_rank;
+
+	next_rank = 0;
+	assign_ranks(*a);
+	if (is_sorted(*a))
+		return ;
+	while (*a)
+	{
+		shift_to_top(a, next_rank, ops);
+		pb(a, b, ops);
+		next_rank++;
+		//print_stacks(*a, *b);
+	}
+	while (*b)
+		pa(a, b, ops);
+	//print_stacks(*a, *b);
+}
+
+// static void print_stacks(t_stack *a, t_stack *b)
+// {
+// 	ft_printf("__________");
+// 	while (a)
+// 	{
+// 		ft_printf("  %d    %d  ", *((int *)a->content), *((int *)b->content));
+// 		a = a->next;
+// 		b = b->next;
+// 	}
+// 	ft_printf("__A____B__");
+// }

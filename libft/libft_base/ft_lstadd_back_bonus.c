@@ -6,16 +6,16 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:37:08 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/28 11:30:00 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/04 11:15:25 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	ft_lstadd_back(t_stack **lst, t_stack *new)
 {
-	t_list	*previous;
-	t_list	*current;
+	t_stack	*previous;
+	t_stack	*current;
 
 	if (!*lst)
 	{

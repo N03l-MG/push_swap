@@ -6,13 +6,13 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:37:18 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/28 11:30:13 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/04 11:15:25 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstdelone(t_stack *lst, void (*del)(void *))
 {
 	del(lst->content);
 	free(lst);

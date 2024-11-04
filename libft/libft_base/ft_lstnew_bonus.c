@@ -6,17 +6,17 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:37:35 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/28 11:30:33 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/04 11:15:25 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_stack	*ft_lstnew(void *content)
 {
-	t_list	*list;
+	t_stack	*list;
 
-	list = (t_list *)malloc(sizeof(t_list));
+	list = (t_stack *)malloc(sizeof(t_stack));
 	if (!list)
 		return (NULL);
 	list->content = content;

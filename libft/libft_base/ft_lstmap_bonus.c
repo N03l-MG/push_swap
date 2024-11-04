@@ -6,17 +6,17 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 12:37:30 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/28 11:30:28 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/04 11:15:25 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_stack	*ft_lstmap(t_stack *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new;
-	t_list	*node;
-	t_list	*last;
+	t_stack	*new;
+	t_stack	*node;
+	t_stack	*last;
 	void	*modified_content;
 
 	new = NULL;

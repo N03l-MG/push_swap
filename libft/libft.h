@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:48:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/10/28 11:45:09 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/04 12:03:05 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+// Stack list for push_swap
+typedef struct s_stack
+{
+	void			*content;
+	struct s_stack	*next;
+	int				rank;
+}					t_stack;
 
 // Standard libft Functions
 int		ft_atoi(const char *str);
@@ -65,15 +73,15 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 
 // Bonus Linked List Functions
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_front(t_list **lst, t_list *new);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+t_stack	*ft_lstnew(void *content);
+void	ft_lstadd_front(t_stack **lst, t_stack *new);
+int		ft_lstsize(t_stack *lst);
+t_stack	*ft_lstlast(t_stack *lst);
+void	ft_lstadd_back(t_stack **lst, t_stack *new);
+void	ft_lstdelone(t_stack *lst, void (*del)(void *));
+void	ft_lstclear(t_stack **lst, void (*del)(void *));
+void	ft_lstiter(t_stack *lst, void (*f)(void *));
+t_stack	*ft_lstmap(t_stack *lst, void *(*f)(void *), void (*del)(void *));
 
 // ft_printf Implementation
 int		ft_printf(const char *str, ...);
