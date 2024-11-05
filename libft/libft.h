@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:48:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/04 12:03:05 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:58:30 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ typedef struct s_list
 typedef struct s_stack
 {
 	void			*content;
+	int				index;
+	int				cost;
+	bool			cheapest;
+	struct s_stack	*target;
+	struct s_stack	*previous;
 	struct s_stack	*next;
-	int				rank;
 }					t_stack;
 
 // Standard libft Functions

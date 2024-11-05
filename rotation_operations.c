@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:36:16 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/04 14:36:51 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/05 16:00:14 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,25 @@ void	rb(t_stack **b, int *ops)
 }
 
 // Simultaneous forward rotations
-// void rr(t_stack **a, t_stack **b, int *ops)
-// {
-// 	ra(a);
-// 	rb(b);
-// 	ft_printf("rr\n");
-// }
+void	rr(t_stack **a, t_stack **b, int *ops)
+{
+	t_stack	*a_first;
+	t_stack	*b_first;
+
+	if ((a && *a && (*a)->next) && (b && *b && (*b)->next))
+	{
+		a_first = *a;
+		*a = a_first->next;
+		a_first->next = NULL;
+		ft_lstadd_back(a, a_first);
+		b_first = *b;
+		*b = b_first->next;
+		b_first->next = NULL;
+		ft_lstadd_back(b, b_first);
+		ft_printf("rr\n");
+		(*ops)++;
+	}
+}
 
 // Rotates A backward
 void	rra(t_stack **a, int *ops)

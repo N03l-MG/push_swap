@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/04 13:04:08 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/05 15:34:10 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rra(t_stack **a, int *ops);
 void	rrb(t_stack **b, int *ops);
 void	rrr(t_stack **a, t_stack **b, int *ops);
 
-int		calc_max_bits(t_stack *a);
-void	radix_sort(int max_bits, t_stack **a, t_stack **b, int *ops);
+void	simple_sort(t_stack **a, int ops);
+void	mt_sort(t_stack **a, t_stack **b, int *ops);
 
 #endif
