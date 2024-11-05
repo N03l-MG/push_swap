@@ -26,8 +26,11 @@ void	simple_sort(t_stack **a, int *ops)
 
 t_stack *find_max(t_stack *stack)
 {
-    t_stack *maximum_node = stack;
+    t_stack *maximum_node;
 
+	if (!stack)
+		return NULL;
+	maximum_node = stack;
     while (stack)
     {
         if (*(int *)(stack->content) > *(int *)(maximum_node->content))

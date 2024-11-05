@@ -13,7 +13,6 @@
 #include "push_swap.h"
 
 static void	parse_input(const char *input, t_stack **a);
-static bool	is_sorted(t_stack *a);
 static void	clear_stack(t_stack **stack);
 static void	print_output(t_stack *a, int ops);
 

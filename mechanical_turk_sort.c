@@ -24,24 +24,34 @@ void	turk_sort(t_stack **a, t_stack **b, int *ops)
 {
 	int	a_size;
 
+	ft_printf("Preparing B...\n");
 	a_size = ft_lstsize(*a);
 	if (a_size-- > 3)
 		pb(a, b, ops);
 	if (a_size-- > 3)
 		pb(a, b, ops);
+	ft_printf("Begin sort!\n");
 	while (a_size-- > 3)
 	{
-		assign_index(a);
-		assign_index(b);
+		assign_index(*a);
+		ft_printf("assigned A indexes\n");
+		assign_index(*b);
+		ft_printf("assigned B indexes\n");
 		find_target(*a, *b);
+		ft_printf("found target\n");
 		find_shift_cost(*a, *b);
+		ft_printf("calculated cost\n");
 		mark_cheapest(*a);
+		ft_printf("found cheapest\n");
 		push_setup(a, b, ops);
+		ft_printf("shifted A node to top\n");
 		pb(a, b, ops);
 	}
 	simple_sort(a, ops);
 	while (*b)
 	{
+		assign_index(*a);
+		assign_index(*b);
 		find_return_target(*a, *b);
 		push_setup(a, b, ops);
 		pa(a, b, ops);
@@ -75,7 +85,7 @@ static void	find_target(t_stack *a, t_stack *b)
 
 	while (a)
 	{
-		target_index = -1;
+		target_index = INT_MIN;
 		b_node = b;
 		while (b_node)
 		{
@@ -86,10 +96,15 @@ static void	find_target(t_stack *a, t_stack *b)
 			}
 			b_node = b_node->next;
 		}
-		if (target_index == -1)
+		if (target_index == INT_MIN)
 			a->target = find_max(b);
 		else
 			a->target = target_node;
+
+		if (a->target)
+			ft_printf("Node %d -> Target %d\n", *(int *)a->content, *(int *)a->target->content);
+		else
+			ft_printf("Node %d -> No target found\n", *(int *)a->content);
 		a = a->next;
 	}
 }
@@ -104,12 +119,12 @@ static void	find_shift_cost(t_stack *a, t_stack *b)
 	while (a)
 	{
 		a->cost = a->index;
-		if (a->index <= a_size / 2)
-			a->cost = a_size - a->index;
-		if (a->target->index <= a_size / 2)
+		if (!(a->over_median))
+			a->cost = a_size - (a->index);
+		if (a->target->over_median)
 			a->cost += a->target->index;
 		else
-			a->cost += (b_size - a->target->index);
+			a->cost += b_size - (a->target->index);
 		a = a->next;
 	}
 }
@@ -141,9 +156,9 @@ static void push_setup(t_stack **src, t_stack **dst, int *ops)
 	cheapest_node = *src;
 	while (cheapest_node && !cheapest_node->cheapest)
 		cheapest_node = cheapest_node->next;
-	if (cheapest_node->index >= src_size / 2 && cheapest_node->target->index >= src_size / 2)
+	if (cheapest_node->over_median && cheapest_node->target->over_median)
 		rr(src, dst, ops);
-	else if (cheapest_node->index < src_size / 2 && cheapest_node->target->index < src_size / 2)
+	else if (!(cheapest_node->over_median) && !(cheapest_node->target->over_median))
 		rrr(src, dst, ops);
 	shift_to_top(src, cheapest_node->index, src_size, ops);
 }
