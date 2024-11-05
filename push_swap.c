@@ -26,7 +26,7 @@ int	main(int argc, char *argv[])
 	a = NULL;
 	b = NULL;
 	ops = 0;
-	if (argc < 2)
+	if (argc == 1 || (argc == 2 && !*argv))
 		return (1);
 	parse_input(argv[1], &a);
 	if (!is_sorted(a))
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[])
 		else if (ft_lstsize(a) == 3)
 			simple_sort(&a, &ops);
 		else
-			mt_sort(&a, &b, &ops);
+			turk_sort(&a, &b, &ops);
 	}
 	print_output(a, ops);
 	clear_stack(&a);
@@ -76,17 +76,6 @@ static void	parse_input(const char *input, t_stack **a)
 	}
 	ft_printf("\n");
 	free(strings);
-}
-
-static bool	is_sorted(t_stack *a)
-{
-	while (a && a->next)
-	{
-		if (*((int *)a->content) > *((int *)a->next->content))
-			return (false);
-		a = a->next;
-	}
-	return (true);
 }
 
 static void	clear_stack(t_stack **stack)

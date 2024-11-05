@@ -34,6 +34,7 @@ typedef struct s_stack
 	void			*content;
 	int				index;
 	int				cost;
+	bool			over_median;
 	bool			cheapest;
 	struct s_stack	*target;
 	struct s_stack	*next;

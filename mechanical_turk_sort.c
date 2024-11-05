@@ -12,9 +12,7 @@
 
 #include "push_swap.h"
 
-static int	find_max(t_stack *stack);
-static int	find_min(t_stack *stack);
-static void	initial_b_push(t_stack **a, t_stack **b, int *ops);
+static void	assign_index(t_stack *stack);
 static void	find_target(t_stack *a, t_stack *b);
 static void	find_shift_cost(t_stack *a, t_stack *b);
 static void	mark_cheapest(t_stack *a);
@@ -22,78 +20,51 @@ static void	push_setup(t_stack **src, t_stack **dst, int *ops);
 static void	shift_to_top(t_stack **a, int index, int len, int *ops);
 static void	find_return_target(t_stack *a, t_stack *b);
 
-void	simple_sort(t_stack **a, int ops)
+void	turk_sort(t_stack **a, t_stack **b, int *ops)
 {
-	t_stack	*maximum;
+	int	a_size;
 
-	maximum = find_max(a);
-	if (maximum == *a)
-		ra(a, ops);
-	else if ((*a)->next == maximum)
-		rra(a, ops);
-	if ((*a)->content > (*a)->next->content)
-		sa(a, ops);
-}
-
-static int find_max(t_stack *stack)
-{
-    int current_value;
-    int maximum = INT_MIN;
-
-    while (stack)
-    {
-        current_value = *(int *)(stack->content);
-        if (current_value > maximum)
-            maximum = current_value;
-        stack = stack->next;
-    }
-    return maximum;
-}
-
-static int find_min(t_stack *stack)
-{
-    int current_value;
-    int minimum = INT_MAX;
-
-    while (stack)
-    {
-        current_value = *(int *)(stack->content);
-        if (current_value < minimum)
-            minimum = current_value;
-        stack = stack->next;
-    }
-    return minimum;
-}
-
-void	mt_sort(t_stack **a, t_stack **b, int *ops)
-{
-	initial_b_push(a, b, ops);
-	while (ft_lstsize(a) > 4)
+	a_size = ft_lstsize(*a);
+	if (a_size-- > 3)
+		pb(a, b, ops);
+	if (a_size-- > 3)
+		pb(a, b, ops);
+	while (a_size-- > 3)
 	{
-		find_target(a, b);
-		find_shift_cost(a, b);
-		mark_cheapest(a);
+		assign_index(a);
+		assign_index(b);
+		find_target(*a, *b);
+		find_shift_cost(*a, *b);
+		mark_cheapest(*a);
 		push_setup(a, b, ops);
 		pb(a, b, ops);
 	}
 	simple_sort(a, ops);
 	while (*b)
 	{
-		find_return_target(a, b);
+		find_return_target(*a, *b);
 		push_setup(a, b, ops);
 		pa(a, b, ops);
 	}
 }
 
-static void	initial_b_push(t_stack **a, t_stack **b, int *ops)
+static void	assign_index(t_stack *stack)
 {
-	if (ft_lstsize(a) > 4)
+	int	i;
+	int	median;
+
+	i = 0;
+	median = ft_lstsize(stack) / 2;
+	while (stack)
 	{
-		while (ft_lstsize(b) < 2)
-			pb(a, b, ops);
+		stack->index = i;
+		if(i <= median)
+			stack->over_median = true;
+		else
+			stack->over_median = false;
+		stack = stack->next;
+		i++;
 	}
-	else
-		pb(a, b, ops);
 }
 
 static void	find_target(t_stack *a, t_stack *b)
@@ -108,9 +79,9 @@ static void	find_target(t_stack *a, t_stack *b)
 		b_node = b;
 		while (b_node)
 		{
-			if (b_node->content < a->content && b_node->content > target_index)
+			if (*((int *)b_node->content) < *(int *)a->content && *((int *)b_node->content) > target_index)
 			{
-				target_index = b_node->content;
+				target_index = *((int *)b_node->content);
 				target_node = b_node;
 			}
 			b_node = b_node->next;
@@ -135,7 +106,7 @@ static void	find_shift_cost(t_stack *a, t_stack *b)
 		a->cost = a->index;
 		if (a->index <= a_size / 2)
 			a->cost = a_size - a->index;
-		if (a->target <= a_size / 2)
+		if (a->target->index <= a_size / 2)
 			a->cost += a->target->index;
 		else
 			a->cost += (b_size - a->target->index);
@@ -163,18 +134,18 @@ static void	mark_cheapest(t_stack *a)
 
 static void push_setup(t_stack **src, t_stack **dst, int *ops)
 {
-    t_stack *cheapest_node;
-    int src_size;
+	t_stack *cheapest_node;
+	int src_size;
 
-    src_size = ft_lstsize(src);
-    cheapest_node = *src;
-    while (cheapest_node && !cheapest_node->cheapest)
-        cheapest_node = cheapest_node->next;
-    if (cheapest_node->index >= src_size / 2 && cheapest_node->target->index >= src_size / 2)
-        rr(src, dst, ops);
-    else if (cheapest_node->index < src_size / 2 && cheapest_node->target->index < src_size / 2)
-        rrr(src, dst, ops);
-    shift_to_top(src, cheapest_node->index, src_size, ops);
+	src_size = ft_lstsize(*src);
+	cheapest_node = *src;
+	while (cheapest_node && !cheapest_node->cheapest)
+		cheapest_node = cheapest_node->next;
+	if (cheapest_node->index >= src_size / 2 && cheapest_node->target->index >= src_size / 2)
+		rr(src, dst, ops);
+	else if (cheapest_node->index < src_size / 2 && cheapest_node->target->index < src_size / 2)
+		rrr(src, dst, ops);
+	shift_to_top(src, cheapest_node->index, src_size, ops);
 }
 
 static void shift_to_top(t_stack **a, int index, int len, int *ops)
@@ -207,9 +178,9 @@ static void find_return_target(t_stack *a, t_stack *b)
 		a_node = a;
 		while (a_node)
 		{
-			if (a_node->content > b->content && a_node->content < target_index)
+			if (*((int *)a_node->content) > *(int *)b->content && *((int *)a_node->content) < target_index)
 			{
-				target_index = a_node->content;
+				target_index = *((int *)a_node->content);
 				target_node = a_node;
 			}
 			a_node = a_node->next;

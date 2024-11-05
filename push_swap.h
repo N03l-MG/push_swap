@@ -27,7 +27,10 @@ void	rra(t_stack **a, int *ops);
 void	rrb(t_stack **b, int *ops);
 void	rrr(t_stack **a, t_stack **b, int *ops);
 
-void	simple_sort(t_stack **a, int ops);
-void	mt_sort(t_stack **a, t_stack **b, int *ops);
+bool	is_sorted(t_stack *a);
+t_stack *find_max(t_stack *stack);
+t_stack *find_min(t_stack *stack);
+void	simple_sort(t_stack **a, int *ops);
+void	turk_sort(t_stack **a, t_stack **b, int *ops);
 
 #endif
