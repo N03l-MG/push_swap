@@ -13,12 +13,11 @@
 #include "push_swap.h"
 
 static void	parse_input(const char *input, t_stack **a);
-static void	assign_ranks(t_stack *a);
-static int	*bubble(int *values, int length);
-static void	shift_to_top(t_stack **a, int rank, int *ops);
-static bool	is_sorted(t_stack *a);
-static void	push_swap_sort(t_stack **a, t_stack **b, int *ops);
-static void	print_stacks(t_stack *a, t_stack *b);
+// static void	assign_ranks(t_stack *a);
+// static int	*bubble(int *values, int length);
+// static void	shift_to_top(t_stack **a, int rank, int *ops);
+// static bool	is_sorted(t_stack *a);
+// static void	push_swap_sort(t_stack **a, t_stack **b, int *ops);
 
 int	main(int argc, char *argv[])
 {
@@ -34,7 +33,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	input = argv[1];
 	parse_input(input, &a);
-	push_swap_sort(&a, &b, &ops);
+	radix_sort(calc_max_bits(a), &a, &b, &ops);
 	ft_printf("Output:\n");
 	while (a)
 	{
@@ -79,6 +78,7 @@ static void	parse_input(const char *input, t_stack **a)
 	free(strings);
 }
 
+// ##################  NO LONGER USED  ###########################
 // Simple sort to determine ranks
 static int	*bubble(int *values, int length)
 {
@@ -203,15 +203,3 @@ static void	push_swap_sort(t_stack **a, t_stack **b, int *ops)
 		pa(a, b, ops);
 	//print_stacks(*a, *b);
 }
-
-// static void print_stacks(t_stack *a, t_stack *b)
-// {
-// 	ft_printf("__________");
-// 	while (a)
-// 	{
-// 		ft_printf("  %d    %d  ", *((int *)a->content), *((int *)b->content));
-// 		a = a->next;
-// 		b = b->next;
-// 	}
-// 	ft_printf("__A____B__");
-// }

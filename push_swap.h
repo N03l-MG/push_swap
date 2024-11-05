@@ -27,4 +27,7 @@ void	rra(t_stack **a, int *ops);
 void	rrb(t_stack **b, int *ops);
 void	rrr(t_stack **a, t_stack **b, int *ops);
 
+int		calc_max_bits(t_stack *a);
+void	radix_sort(int max_bits, t_stack **a, t_stack **b, int *ops);
+
 #endif
