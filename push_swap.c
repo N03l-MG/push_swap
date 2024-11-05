@@ -14,6 +14,7 @@
 
 static void	parse_input(const char *input, t_stack **a);
 static bool	is_sorted(t_stack *a);
+static void	clear_stack(t_stack **stack);
 static void	print_output(t_stack *a, int ops);
 
 int	main(int argc, char *argv[])
@@ -31,13 +32,14 @@ int	main(int argc, char *argv[])
 	if (!is_sorted(a))
 	{
 		if (ft_lstsize(a) == 2)
-			sa(&a, ops);
-		else if (ft_lstsize == 3)
-			simple_sort(&a, ops);
+			sa(&a, &ops);
+		else if (ft_lstsize(a) == 3)
+			simple_sort(&a, &ops);
 		else
-			mt_sort(&a, &b, ops);
+			mt_sort(&a, &b, &ops);
 	}
 	print_output(a, ops);
+	clear_stack(&a);
 	return (0);
 }
 
@@ -60,8 +62,9 @@ static void	parse_input(const char *input, t_stack **a)
 		new = ft_lstnew(malloc(sizeof(int)));
 		if (!new)
 		{
-			while (j < i)
-				free(strings[j]);
+			clear_stack(a);
+			while (strings[j])
+				free(strings[j++]);
 			free(strings);
 			return ;
 		}
@@ -84,6 +87,19 @@ static bool	is_sorted(t_stack *a)
 		a = a->next;
 	}
 	return (true);
+}
+
+static void	clear_stack(t_stack **stack)
+{
+	t_stack *tmp;
+
+	while (*stack)
+	{
+		tmp = (*stack)->next;
+		free((*stack)->content);
+		free(*stack);
+		*stack = tmp;
+	}
 }
 
 static void	print_output(t_stack *a, int ops)

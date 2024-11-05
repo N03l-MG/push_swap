@@ -13,6 +13,14 @@
 #include "push_swap.h"
 
 static int	find_max(t_stack *stack);
+static int	find_min(t_stack *stack);
+static void	initial_b_push(t_stack **a, t_stack **b, int *ops);
+static void	find_target(t_stack *a, t_stack *b);
+static void	find_shift_cost(t_stack *a, t_stack *b);
+static void	mark_cheapest(t_stack *a);
+static void	push_setup(t_stack **src, t_stack **dst, int *ops);
+static void	shift_to_top(t_stack **a, int index, int len, int *ops);
+static void	find_return_target(t_stack *a, t_stack *b);
 
 void	simple_sort(t_stack **a, int ops)
 {
@@ -27,30 +35,54 @@ void	simple_sort(t_stack **a, int ops)
 		sa(a, ops);
 }
 
-static int	find_max(t_stack *stack)
+static int find_max(t_stack *stack)
 {
-	int	current_value;
-	int	maximum;
+    int current_value;
+    int maximum = INT_MIN;
 
-	current_value = 0;
-	maximum = 0;
-	while (stack)
-	{
-		current_value = *(int *)(stack->content);
-		if (current_value > maximum)
-			maximum = current_value;
-		stack = stack->next;
-	}
-	return (maximum);
+    while (stack)
+    {
+        current_value = *(int *)(stack->content);
+        if (current_value > maximum)
+            maximum = current_value;
+        stack = stack->next;
+    }
+    return maximum;
+}
+
+static int find_min(t_stack *stack)
+{
+    int current_value;
+    int minimum = INT_MAX;
+
+    while (stack)
+    {
+        current_value = *(int *)(stack->content);
+        if (current_value < minimum)
+            minimum = current_value;
+        stack = stack->next;
+    }
+    return minimum;
 }
 
 void	mt_sort(t_stack **a, t_stack **b, int *ops)
 {
 	initial_b_push(a, b, ops);
-	find_target(a, b);
-	find_shift_cost(a, b);
-	mark_cheapest(a);
-
+	while (ft_lstsize(a) > 4)
+	{
+		find_target(a, b);
+		find_shift_cost(a, b);
+		mark_cheapest(a);
+		push_setup(a, b, ops);
+		pb(a, b, ops);
+	}
+	simple_sort(a, ops);
+	while (*b)
+	{
+		find_return_target(a, b);
+		push_setup(a, b, ops);
+		pa(a, b, ops);
+	}
 }
 
 static void	initial_b_push(t_stack **a, t_stack **b, int *ops)
@@ -129,39 +161,63 @@ static void	mark_cheapest(t_stack *a)
 	cheapest_node->cheapest = true;
 }
 
-static void	move_to_target(t_stack **a, t_stack **b, int *ops)
+static void push_setup(t_stack **src, t_stack **dst, int *ops)
 {
-	t_stack	*cheapest_node;
-	int a_size;
+    t_stack *cheapest_node;
+    int src_size;
 
-	a_size = ft_lstsize(a);
-	while (*a)
-	{
-		if ((*a)->cheapest)
-		{
-			cheapest_node = *a;
-			break ;
-		}
-		*a = (*a)->next;
-	}
-	if (cheapest_node >= a_size / 2 && cheapest_node->target >= a_size / 2)
-		rr(a, b, ops);
-	else if (!(cheapest_node >= a_size / 2) && !(cheapest_node->target >= a_size / 2))
-		rrr(a, b, ops);
-	shift_to_top(a, ops);
+    src_size = ft_lstsize(src);
+    cheapest_node = *src;
+    while (cheapest_node && !cheapest_node->cheapest)
+        cheapest_node = cheapest_node->next;
+    if (cheapest_node->index >= src_size / 2 && cheapest_node->target->index >= src_size / 2)
+        rr(src, dst, ops);
+    else if (cheapest_node->index < src_size / 2 && cheapest_node->target->index < src_size / 2)
+        rrr(src, dst, ops);
+    shift_to_top(src, cheapest_node->index, src_size, ops);
 }
 
-static void	shift_to_top(t_stack **a, int *ops) // WORK IN PROGRESS
+static void shift_to_top(t_stack **a, int index, int len, int *ops)
 {
-	
-	if (position <= len / 2)
+	int i;
+
+	if (index <= len / 2)
 	{
-		for (int i = 0; i < position; i++)
+		i = 0;
+		while (i++ < index)
 			ra(a, ops);
 	}
 	else
 	{
-		for (int i = 0; i < len - position; i++)
+		i = 0;
+		while (i++ < len - index)
 			rra(a, ops);
+	}
+}
+
+static void find_return_target(t_stack *a, t_stack *b)
+{
+	t_stack *a_node;
+	t_stack *target_node;
+	int target_index;
+
+	while (b)
+	{
+		target_index = INT_MAX;
+		a_node = a;
+		while (a_node)
+		{
+			if (a_node->content > b->content && a_node->content < target_index)
+			{
+				target_index = a_node->content;
+				target_node = a_node;
+			}
+			a_node = a_node->next;
+		}
+		if (target_index == INT_MAX)
+			b->target = find_min(a);
+		else
+			b->target = target_node;
+		b = b->next;
 	}
 }

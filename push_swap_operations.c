@@ -48,25 +48,20 @@ void	sb(t_stack **b, int *ops)
 	}
 }
 
-// Simultaneous swaps
-// void ss(t_stack **a, t_stack **b, int *ops)
-// {
-// 	sa(a);
-// 	sb(b);
-// 	ft_printf("ss\n");
-// }
-
 // Pushes first element from B to A
 void	pa(t_stack **a, t_stack **b, int *ops)
 {
 	t_stack	*first;
 
-	first = *b;
-	*b = (*b)->next;
-	first->next = *a;
-	*a = first;
-	ft_printf("pa\n");
-	(*ops)++;
+	if (b && *b)
+	{
+		first = *b;
+		*b = (*b)->next;
+		first->next = *a;
+		*a = first;
+		ft_printf("pa\n");
+		(*ops)++;
+	}
 }
 
 // Pushes first element from A to B
@@ -74,10 +69,13 @@ void	pb(t_stack **a, t_stack **b, int *ops)
 {
 	t_stack	*first;
 
-	first = *a;
-	*a = (*a)->next;
-	first->next = *b;
-	*b = first;
-	ft_printf("pb\n");
-	(*ops)++;
+	if (b && *b)
+	{
+		first = *a;
+		*a = (*a)->next;
+		first->next = *b;
+		*b = first;
+		ft_printf("pb\n");
+		(*ops)++;
+	}
 }

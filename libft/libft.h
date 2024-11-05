@@ -36,7 +36,6 @@ typedef struct s_stack
 	int				cost;
 	bool			cheapest;
 	struct s_stack	*target;
-	struct s_stack	*previous;
 	struct s_stack	*next;
 }					t_stack;
 
