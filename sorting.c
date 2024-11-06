@@ -85,9 +85,7 @@ static void	find_target(t_stack *a, t_stack *b)
 static void	push_setup(t_stack **a, t_stack **b, int *ops)
 {
 	t_stack	*cheapest_node;
-	int		a_size;
 
-	a_size = ft_lstsize(*a);
 	cheapest_node = *a;
 	while (cheapest_node && !cheapest_node->cheapest)
 		cheapest_node = cheapest_node->next;

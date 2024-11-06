@@ -32,7 +32,7 @@ void	simple_sort(t_stack **a, int *ops)
 		ra(a, ops);
 	else if ((*a)->next == maximum)
 		rra(a, ops);
-	if ((*a)->content > (*a)->next->content)
+	if (*((int *)(*a)->content) > *((int *)(*a)->next->content))
 		sa(a, ops);
 }
 
