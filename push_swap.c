@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:45 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/05 15:20:50 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/06 13:55:34 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	parse_input(const char *input, t_stack **a)
 
 static void	clear_stack(t_stack **stack)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	while (*stack)
 	{

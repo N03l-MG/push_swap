@@ -6,45 +6,37 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 14:54:53 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/05 17:23:59 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/06 16:03:04 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	assign_index(t_stack *stack);
 static void	find_target(t_stack *a, t_stack *b);
 static void	find_shift_cost(t_stack *a, t_stack *b);
 static void	mark_cheapest(t_stack *a);
 static void	push_setup(t_stack **src, t_stack **dst, int *ops);
-static void	shift_to_top(t_stack **a, int index, int len, int *ops);
+static void shift_to_top(t_stack **stack, t_stack *top_node, char name, int *ops);
 static void	find_return_target(t_stack *a, t_stack *b);
+static void	final_shift(t_stack **a, int *ops);
 
 void	turk_sort(t_stack **a, t_stack **b, int *ops)
 {
 	int	a_size;
 
-	ft_printf("Preparing B...\n");
 	a_size = ft_lstsize(*a);
-	if (a_size-- > 3)
+	if (a_size-- > 3 && !is_sorted(*a))
 		pb(a, b, ops);
-	if (a_size-- > 3)
+	if (a_size-- > 3 && !is_sorted(*a))
 		pb(a, b, ops);
-	ft_printf("Begin sort!\n");
-	while (a_size-- > 3)
+	while (a_size-- > 3 && !is_sorted(*a))
 	{
 		assign_index(*a);
-		ft_printf("assigned A indexes\n");
 		assign_index(*b);
-		ft_printf("assigned B indexes\n");
 		find_target(*a, *b);
-		ft_printf("found target\n");
 		find_shift_cost(*a, *b);
-		ft_printf("calculated cost\n");
 		mark_cheapest(*a);
-		ft_printf("found cheapest\n");
 		push_setup(a, b, ops);
-		ft_printf("shifted A node to top\n");
 		pb(a, b, ops);
 	}
 	simple_sort(a, ops);
@@ -53,28 +45,11 @@ void	turk_sort(t_stack **a, t_stack **b, int *ops)
 		assign_index(*a);
 		assign_index(*b);
 		find_return_target(*a, *b);
-		push_setup(a, b, ops);
+		shift_to_top(a, (*b)->target, 'a', ops);
 		pa(a, b, ops);
 	}
-}
-
-static void	assign_index(t_stack *stack)
-{
-	int	i;
-	int	median;
-
-	i = 0;
-	median = ft_lstsize(stack) / 2;
-	while (stack)
-	{
-		stack->index = i;
-		if(i <= median)
-			stack->over_median = true;
-		else
-			stack->over_median = false;
-		stack = stack->next;
-		i++;
-	}
+	assign_index(*a);
+	final_shift(a, ops);
 }
 
 static void	find_target(t_stack *a, t_stack *b)
@@ -100,11 +75,6 @@ static void	find_target(t_stack *a, t_stack *b)
 			a->target = find_max(b);
 		else
 			a->target = target_node;
-
-		if (a->target)
-			ft_printf("Node %d -> Target %d\n", *(int *)a->content, *(int *)a->target->content);
-		else
-			ft_printf("Node %d -> No target found\n", *(int *)a->content);
 		a = a->next;
 	}
 }
@@ -147,37 +117,41 @@ static void	mark_cheapest(t_stack *a)
 	cheapest_node->cheapest = true;
 }
 
-static void push_setup(t_stack **src, t_stack **dst, int *ops)
+static void push_setup(t_stack **a, t_stack **b, int *ops)
 {
 	t_stack *cheapest_node;
-	int src_size;
+	int a_size;
 
-	src_size = ft_lstsize(*src);
-	cheapest_node = *src;
+	a_size = ft_lstsize(*a);
+	cheapest_node = *a;
 	while (cheapest_node && !cheapest_node->cheapest)
 		cheapest_node = cheapest_node->next;
 	if (cheapest_node->over_median && cheapest_node->target->over_median)
-		rr(src, dst, ops);
+		double_rot(a, b, cheapest_node, ops);
 	else if (!(cheapest_node->over_median) && !(cheapest_node->target->over_median))
-		rrr(src, dst, ops);
-	shift_to_top(src, cheapest_node->index, src_size, ops);
+		rev_double_rot(a, b, cheapest_node, ops);
+	shift_to_top(a, cheapest_node, 'a', ops);
+	shift_to_top(b, cheapest_node->target, 'b', ops);
 }
 
-static void shift_to_top(t_stack **a, int index, int len, int *ops)
+static void shift_to_top(t_stack **stack, t_stack *top_node, char name, int *ops)
 {
-	int i;
-
-	if (index <= len / 2)
+	while (*stack != top_node)
 	{
-		i = 0;
-		while (i++ < index)
-			ra(a, ops);
-	}
-	else
-	{
-		i = 0;
-		while (i++ < len - index)
-			rra(a, ops);
+		if (name == 'a')
+		{
+			if (top_node->over_median)
+				ra(stack, ops);
+			else
+				rra(stack, ops);
+		}
+		else if (name == 'b')
+		{
+			if (top_node->over_median)
+				rb(stack, ops);
+			else
+				rrb(stack, ops);
+		}
 	}
 }
 
@@ -205,5 +179,16 @@ static void find_return_target(t_stack *a, t_stack *b)
 		else
 			b->target = target_node;
 		b = b->next;
+	}
+}
+
+static void	final_shift(t_stack **a, int *ops)
+{
+	while ((*a)->content != find_min(*a)->content)
+	{
+		if(find_min(*a)->over_median)
+			ra(a, ops);
+		else
+			rra(a, ops);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:59 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/04 14:36:42 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/06 14:30:38 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	pb(t_stack **a, t_stack **b, int *ops)
 {
 	t_stack	*first;
 
-	if (b && *b)
+	if (a && *a)
 	{
 		first = *a;
 		*a = (*a)->next;

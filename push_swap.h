@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/05 15:34:10 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/06 16:17:39 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ void	rrb(t_stack **b, int *ops);
 void	rrr(t_stack **a, t_stack **b, int *ops);
 
 bool	is_sorted(t_stack *a);
-t_stack *find_max(t_stack *stack);
-t_stack *find_min(t_stack *stack);
+t_stack	*find_max(t_stack *stack);
+t_stack	*find_min(t_stack *stack);
+void	assign_index(t_stack *stack);
+void	double_rot(t_stack **a, t_stack **b, t_stack *cheap_node, int *ops);
+void	rev_double_rot(t_stack **a, t_stack **b, t_stack *cheap_node, int *ops);
 void	simple_sort(t_stack **a, int *ops);
 void	turk_sort(t_stack **a, t_stack **b, int *ops);
 

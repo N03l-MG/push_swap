@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algorithm_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/06 13:57:42 by nmonzon           #+#    #+#             */
+/*   Updated: 2024/11/06 16:17:33 by nmonzon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 bool	is_sorted(t_stack *a)
@@ -24,31 +36,69 @@ void	simple_sort(t_stack **a, int *ops)
 		sa(a, ops);
 }
 
-t_stack *find_max(t_stack *stack)
+t_stack	*find_max(t_stack *stack)
 {
-    t_stack *maximum_node;
+	t_stack	*maximum_node;
 
 	if (!stack)
-		return NULL;
+		return (NULL);
 	maximum_node = stack;
-    while (stack)
-    {
-        if (*(int *)(stack->content) > *(int *)(maximum_node->content))
-            maximum_node = stack;
-        stack = stack->next;
-    }
-    return (maximum_node);
+	while (stack)
+	{
+		if (*(int *)(stack->content) > *(int *)(maximum_node->content))
+			maximum_node = stack;
+		stack = stack->next;
+	}
+	return (maximum_node);
 }
 
-t_stack *find_min(t_stack *stack)
+t_stack	*find_min(t_stack *stack)
 {
-    t_stack *minimum_node = stack;
+	t_stack	*minimum_node;
 
-    while (stack)
-    {
-        if (*(int *)(stack->content) < *(int *)(minimum_node->content))
-            minimum_node = stack;
-        stack = stack->next;
-    }
-    return (minimum_node);
+	if (!stack)
+		return (NULL);
+	minimum_node = stack;
+	while (stack)
+	{
+		if (*(int *)(stack->content) < *(int *)(minimum_node->content))
+			minimum_node = stack;
+		stack = stack->next;
+	}
+	return (minimum_node);
+}
+
+void	assign_index(t_stack *stack)
+{
+	int	i;
+	int	median;
+
+	i = 0;
+	median = ft_lstsize(stack) / 2;
+	while (stack)
+	{
+		stack->index = i;
+		if (i <= median)
+			stack->over_median = true;
+		else
+			stack->over_median = false;
+		stack = stack->next;
+		i++;
+	}
+}
+
+void	double_rot(t_stack **a, t_stack **b, t_stack *cheap_node, int *ops)
+{
+	while (*b != cheap_node->target && *a != cheap_node)
+		rr(a, b, ops);
+	assign_index(*a);
+	assign_index(*b);
+}
+
+void	rev_double_rot(t_stack **a, t_stack **b, t_stack *cheap_node, int *ops)
+{
+	while (*b != cheap_node->target && *a != cheap_node)
+		rrr(a, b, ops);
+	assign_index(*a);
+	assign_index(*b);
 }
