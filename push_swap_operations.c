@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:59 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 14:30:38 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/06 16:48:16 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sa(t_stack **a, int *ops)
 	}
 }
 
-// Swaps first two in B
+// Swaps first two in B (UNUSED)
 void	sb(t_stack **b, int *ops)
 {
 	t_stack	*first;
@@ -44,6 +44,29 @@ void	sb(t_stack **b, int *ops)
 		second->next = first;
 		*b = second;
 		ft_printf("sb\n");
+		(*ops)++;
+	}
+}
+
+// Swaps first two in A and B simultaneously (UNUSED)
+void	ss(t_stack **a, t_stack **b, int *ops)
+{
+	t_stack	*first;
+	t_stack	*second;
+
+	if ((a && *a && (*a)->next) && (b && *b && (*b)->next))
+	{
+		first = *a;
+		second = (*a)->next;
+		first->next = second->next;
+		second->next = first;
+		*a = second;
+		first = *b;
+		second = (*b)->next;
+		first->next = second->next;
+		second->next = first;
+		*b = second;
+		ft_printf("ss\n");
 		(*ops)++;
 	}
 }

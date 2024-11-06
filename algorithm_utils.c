@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:57:42 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 16:17:33 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/06 16:43:05 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,4 @@ void	assign_index(t_stack *stack)
 		stack = stack->next;
 		i++;
 	}
-}
-
-void	double_rot(t_stack **a, t_stack **b, t_stack *cheap_node, int *ops)
-{
-	while (*b != cheap_node->target && *a != cheap_node)
-		rr(a, b, ops);
-	assign_index(*a);
-	assign_index(*b);
-}
-
-void	rev_double_rot(t_stack **a, t_stack **b, t_stack *cheap_node, int *ops)
-{
-	while (*b != cheap_node->target && *a != cheap_node)
-		rrr(a, b, ops);
-	assign_index(*a);
-	assign_index(*b);
 }
