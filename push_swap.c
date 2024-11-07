@@ -6,13 +6,13 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:45 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 13:55:34 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/07 17:28:38 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	parse_input(const char **strings, t_stack **a);
+static void	parse_input(char **strings, t_stack **a);
 static void	clear_stack(t_stack **stack);
 //static void	print_output(t_stack *a, int ops);
 
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 }
 
 // Read user input and populate stack A
-static void	parse_input(const char **strings, t_stack **a)
+static void	parse_input(char **strings, t_stack **a)
 {
 	int		value;
 	int		i;
