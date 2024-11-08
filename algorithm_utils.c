@@ -70,8 +70,8 @@ t_stack	*find_min(t_stack *stack)
 
 void	assign_index(t_stack *stack)
 {
-	int	i;
-	int	median;
+	unsigned int	i;
+	unsigned int	median;
 
 	i = 0;
 	median = ft_lstsize(stack) / 2;

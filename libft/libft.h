@@ -25,7 +25,7 @@
 typedef struct s_stack
 {
 	void			*content;
-	int				index;
+	unsigned int	index;
 	int				cost;
 	bool			over_median;
 	bool			cheapest;
