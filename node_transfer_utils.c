@@ -6,11 +6,13 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:22:37 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 16:57:18 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/08 13:37:22 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	calculate_node_cost(t_stack *node, int a_size, int b_size);
 
 void	find_shift_cost(t_stack *a, t_stack *b)
 {
@@ -21,33 +23,45 @@ void	find_shift_cost(t_stack *a, t_stack *b)
 	b_size = ft_lstsize(b);
 	while (a)
 	{
-		a->cost = a->index;
-		if (!(a->over_median))
-			a->cost = a_size - (a->index);
-		if (a->target->over_median)
-			a->cost += a->target->index;
-		else
-			a->cost += b_size - (a->target->index);
+		a->cost = calculate_node_cost(a, a_size, b_size);
 		a = a->next;
 	}
 }
 
+static int	calculate_node_cost(t_stack *node, int a_size, int b_size)
+{
+	int	cost;
+
+	cost = node->index;
+	if (!node->over_median)
+		cost = a_size - node->index;
+	if (node->target->over_median)
+		cost += node->target->index;
+	else
+		cost += b_size - node->target->index;
+	return (cost);
+}
+
 void	mark_cheapest(t_stack *a)
 {
-	int		cheapest_cost;
+	int		min_cost;
 	t_stack	*cheapest_node;
+	t_stack	*current;
 
-	cheapest_cost = INT_MAX;
-	while (a)
+	min_cost = INT_MAX;
+	cheapest_node = NULL;
+	current = a;
+	while (current)
 	{
-		if (a->cost < cheapest_cost)
+		if (current->cost < min_cost)
 		{
-			cheapest_cost = a->cost;
-			cheapest_node = a;
+			min_cost = current->cost;
+			cheapest_node = current;
 		}
-		a = a->next;
+		current = current->next;
 	}
-	cheapest_node->cheapest = true;
+	if (cheapest_node)
+		cheapest_node->cheapest = true;
 }
 
 void	shift_to_top(t_stack **stack, t_stack *top_node, char name, int *ops)

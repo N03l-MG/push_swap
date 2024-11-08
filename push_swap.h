@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 16:42:29 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/08 18:47:27 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ void	rra(t_stack **a, int *ops);
 void	rrb(t_stack **b, int *ops);
 void	rrr(t_stack **a, t_stack **b, int *ops);
 
+// Parsing
+void	parse_input(char **strings, t_stack **a, bool was_malloced);
+
 // Algorithm Utils
 bool	is_sorted(t_stack *a);
 t_stack	*find_max(t_stack *stack);
@@ -47,5 +50,9 @@ void	final_shift(t_stack **a, int *ops);
 // Sorts
 void	simple_sort(t_stack **a, int *ops);
 void	turk_sort(t_stack **a, t_stack **b, int *ops);
+
+// Error Handling
+void	clear_stack(t_stack **stack);
+void	handle_error(t_stack **a, t_stack **b);
 
 #endif

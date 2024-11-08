@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:48:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/07 17:57:19 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/08 17:30:22 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_stack
 
 // Standard libft Functions
 int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s1);

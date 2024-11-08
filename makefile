@@ -1,8 +1,8 @@
 NAME = push_swap
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
-SOURCE = push_swap.c push_swap_operations.c rotation_operations.c \
-		 sorting.c algorithm_utils.c node_transfer_utils.c simultaneous_rotation_utils.c seal.c
+SOURCE = main_push_swap.c parsing.c push_swap_operations.c rotation_operations.c seal.c \
+		 sorting.c algorithm_utils.c node_transfer_utils.c simultaneous_rotation_utils.c
 LIB = libft/libft.a
 
 OBJ = $(SOURCE:.c=.o)

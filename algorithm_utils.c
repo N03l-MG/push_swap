@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:57:42 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 16:43:05 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/08 13:33:26 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ void	assign_index(t_stack *stack)
 	while (stack)
 	{
 		stack->index = i;
-		if (i <= median)
-			stack->over_median = true;
-		else
-			stack->over_median = false;
+		stack->over_median = (i <= median);
 		stack = stack->next;
 		i++;
 	}
