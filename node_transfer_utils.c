@@ -64,20 +64,20 @@ void	mark_cheapest(t_stack *a)
 		cheapest_node->cheapest = true;
 }
 
-void	shift_to_top(t_stack **stack, t_stack *top_node, char name, int *ops)
+void	shift_to_top(t_stack **stack, t_stack *top, char stack_id, int *ops)
 {
-	while (*stack != top_node)
+	while (*stack != top)
 	{
-		if (name == 'a')
+		if (stack_id == 'a')
 		{
-			if (top_node->over_median)
+			if (top->over_median)
 				ra(stack, ops);
 			else
 				rra(stack, ops);
 		}
-		else if (name == 'b')
+		else if (stack_id == 'b')
 		{
-			if (top_node->over_median)
+			if (top->over_median)
 				rb(stack, ops);
 			else
 				rrb(stack, ops);

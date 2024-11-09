@@ -71,14 +71,14 @@ t_stack	*find_min(t_stack *stack)
 void	assign_index(t_stack *stack)
 {
 	unsigned int	i;
-	unsigned int	median;
+	unsigned int	median_index;
 
 	i = 0;
-	median = ft_lstsize(stack) / 2;
+	median_index = ft_lstsize(stack) / 2;
 	while (stack)
 	{
 		stack->index = i;
-		stack->over_median = (i <= median);
+		stack->over_median = (i <= median_index);
 		stack = stack->next;
 		i++;
 	}
