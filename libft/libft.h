@@ -54,5 +54,7 @@ void	ft_lstclear(t_stack **lst, void (*del)(void *));
 
 // ft_printf Implementation
 int		ft_printf(const char *str, ...);
+// get_next_line Implementation
+char	*get_next_line(int fd);
 
 #endif
