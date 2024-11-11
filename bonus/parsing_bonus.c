@@ -58,29 +58,29 @@ static void	check_duplicate(t_stack **a, int value, char **strs, bool malloced)
 
 static bool	is_valid_number(const char *str)
 {
-	int			i;
-	long long	result;
-	bool		is_negative;
+	long		result;
+	bool		neg;
 
-	i = 0;
 	result = 0;
-	is_negative = false;
-	if (str[i] == '-' || str[i] == '+')
+	neg = false;
+	if (*str == '-' || *str == '+')
 	{
-		i++;
-		if (str[i] == '\0')
+		if (*str == '-')
+			neg = true;
+		str++;
+		if (*str == '\0')
 			return (false);
 	}
-	while (str[i])
+	while (*str)
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(*str))
 			return (false);
-		result = result * 10 + (str[i] - '0');
-		if ((result > INT_MAX) || (-(result) < INT_MIN))
+		result = result * 10 + (*str - '0');
+		if ((result > INT_MAX && !neg) || (result > -(long)INT_MIN && neg))
 			return (false);
-		i++;
+		str++;
 	}
-	return (i > 0);
+	return (ft_strlen(str) > 0);
 }
 
 static bool	has_duplicate(t_stack *stack, int value)

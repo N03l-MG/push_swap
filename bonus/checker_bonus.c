@@ -23,7 +23,7 @@ int	main(int argc, char *argv[])
 
 	a = NULL;
 	b = NULL;
-	if (argc == 1 || (argc == 2 && !argv[1]))
+	if (argc == 1 || (argc == 2 && (!argv[1] || !ft_strcmp(argv[1], ""))))
 		return (1);
 	if (argc == 2)
 		parse_input(ft_split(argv[1], ' '), &a, true);

@@ -12,6 +12,8 @@
 
 #include "push_swap.h"
 
+static int	ft_strcmp(char *s1, char *s2);
+
 int	main(int argc, char *argv[])
 {
 	t_stack		*a;
@@ -21,7 +23,7 @@ int	main(int argc, char *argv[])
 	a = NULL;
 	b = NULL;
 	ops = 0;
-	if (argc == 1 || (argc == 2 && !argv[1]))
+	if (argc == 1 || (argc == 2 && (!argv[1] || !ft_strcmp(argv[1], ""))))
 		return (1);
 	if (argc == 2)
 		parse_input(ft_split(argv[1], ' '), &a, true);
@@ -38,4 +40,23 @@ int	main(int argc, char *argv[])
 	}
 	clear_stack(&a);
 	return (0);
+}
+
+static int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+	int	ret;
+
+	i = 0;
+	ret = 0;
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		ret = s1[i] - s2[i];
+		if (ret != 0)
+			break ;
+		i++;
+	}
+	if (s1[i] == '\0' || s2[i] == '\0')
+		ret = s1[i] - s2[i];
+	return (ret);
 }
