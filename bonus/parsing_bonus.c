@@ -63,6 +63,8 @@ static bool	is_valid_number(const char *str)
 
 	result = 0;
 	neg = false;
+	if (ft_strlen(str) == 0)
+		return (false);
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
@@ -80,7 +82,7 @@ static bool	is_valid_number(const char *str)
 			return (false);
 		str++;
 	}
-	return (ft_strlen(str) > 0);
+	return (true);
 }
 
 static bool	has_duplicate(t_stack *stack, int value)
