@@ -3,7 +3,8 @@ BONUS = checker
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 SOURCE = main_push_swap.c parsing.c push_swap_operations.c rotation_operations.c seal.c \
-		 sorting.c algorithm_utils.c node_transfer_utils.c simultaneous_rotation_utils.c
+		 sorting.c algorithm_utils.c node_transfer_utils.c simultaneous_rotation_utils.c \
+		 error_handling.c
 
 BONUS_SOURCE = bonus/checker_bonus.c bonus/utils_bonus.c bonus/parsing_bonus.c \
 			   bonus/ps_ops_bonus.c bonus/rot_ops_bonus.c bonus/seal_bonus.c
@@ -40,4 +41,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: $(NAME) all clean fclean re

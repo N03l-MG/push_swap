@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:48:54 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/08 17:30:22 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/11 13:14:08 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ int		ft_toupper(int c);
 t_stack	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_stack **lst, t_stack *new);
 int		ft_lstsize(t_stack *lst);
-t_stack	*ft_lstlast(t_stack *lst);
 void	ft_lstadd_back(t_stack **lst, t_stack *new);
-void	ft_lstdelone(t_stack *lst, void (*del)(void *));
-void	ft_lstclear(t_stack **lst, void (*del)(void *));
 
 // ft_printf Implementation
 int		ft_printf(const char *str, ...);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 13:01:37 by nmonzon           #+#    #+#             */
+/*   Updated: 2024/11/11 14:52:28 by nmonzon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 
 static void	execute_instructions(t_stack **a, t_stack **b);
@@ -34,6 +46,7 @@ static void	execute_instructions(t_stack **a, t_stack **b)
 	while (instruction != NULL)
 	{
 		execute_instruction(a, b, instruction);
+		free(instruction);
 		instruction = get_next_line(0);
 	}
 }

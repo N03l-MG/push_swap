@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/11 13:02:15 by nmonzon           #+#    #+#             */
+/*   Updated: 2024/11/11 15:03:52 by nmonzon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 
 bool	is_sorted(t_stack *a)
@@ -35,6 +47,6 @@ void	handle_error(t_stack **a, t_stack **b)
 		clear_stack(a);
 	if (b && *b)
 		clear_stack(b);
-	ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	exit(1);
 }

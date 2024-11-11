@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 12:37:26 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/04 11:15:25 by nmonzon          ###   ########.fr       */
+/*   Created: 2024/11/11 14:17:08 by nmonzon           #+#    #+#             */
+/*   Updated: 2024/11/11 14:34:02 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "push_swap.h"
 
-t_stack	*ft_lstlast(t_stack *lst)
+void	clear_stack(t_stack **stack)
 {
-	t_stack	*last;
+	t_stack	*current;
+	t_stack	*next;
 
-	last = NULL;
-	if (!lst)
-		last = lst;
-	else
+	if (!stack || !*stack)
+		return ;
+	current = *stack;
+	while (current)
 	{
-		while (lst)
-		{
-			last = lst;
-			lst = lst->next;
-		}
+		next = current->next;
+		free(current->content);
+		free(current);
+		current = next;
 	}
-	return (last);
+	*stack = NULL;
+}
+
+void	handle_error(t_stack **a, t_stack **b)
+{
+	if (a && *a)
+		clear_stack(a);
+	if (b && *b)
+		clear_stack(b);
+	write(2, "Error\n", 6);
+	exit(1);
 }

@@ -2,7 +2,6 @@ NAME = libft.a
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 SOURCE = libft_base/ft_itoa.c libft_base/ft_lstadd_back_bonus.c libft_base/ft_lstadd_front_bonus.c \
-		 libft_base/ft_lstclear_bonus.c libft_base/ft_lstdelone_bonus.c libft_base/ft_lstlast_bonus.c \
 		 libft_base/ft_lstnew_bonus.c libft_base/ft_lstsize_bonus.c libft_base/ft_split.c \
 		 libft_base/ft_strdup.c libft_base/ft_isdigit.c libft_base/ft_strlcpy.c libft_base/ft_strlen.c \
 		 libft_base/ft_toupper.c libft_base/ft_atoi.c \
@@ -28,4 +27,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: $(NAME) all clean fclean re
