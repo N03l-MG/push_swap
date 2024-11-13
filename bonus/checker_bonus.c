@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 13:01:37 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/11 14:52:28 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:51:42 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int	main(int argc, char *argv[])
 
 	a = NULL;
 	b = NULL;
-	if (argc == 1 || (argc == 2 && (!argv[1] || !ft_strcmp(argv[1], ""))))
+	if (argc == 1)
 		return (1);
+	if (argc == 2 && ft_strlen(argv[1]) == 0)
+		handle_error(&a, &b);
 	if (argc == 2)
 		parse_input(ft_split(argv[1], ' '), &a, true);
 	else

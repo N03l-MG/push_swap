@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:22:37 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/08 13:37:22 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:49:28 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,34 +64,34 @@ void	mark_cheapest(t_stack *a)
 		cheapest_node->cheapest = true;
 }
 
-void	shift_to_top(t_stack **stack, t_stack *top, char stack_id, int *ops)
+void	shift_to_top(t_stack **stack, t_stack *top, char stack_id)
 {
 	while (*stack != top)
 	{
 		if (stack_id == 'a')
 		{
 			if (top->over_median)
-				ra(stack, ops);
+				ra(stack);
 			else
-				rra(stack, ops);
+				rra(stack);
 		}
 		else if (stack_id == 'b')
 		{
 			if (top->over_median)
-				rb(stack, ops);
+				rb(stack);
 			else
-				rrb(stack, ops);
+				rrb(stack);
 		}
 	}
 }
 
-void	final_shift(t_stack **a, int *ops)
+void	final_shift(t_stack **a)
 {
 	while ((*a)->content != find_min(*a)->content)
 	{
 		if (find_min(*a)->over_median)
-			ra(a, ops);
+			ra(a);
 		else
-			rra(a, ops);
+			rra(a);
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 14:36:16 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 13:54:14 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:46:54 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // Rotates A forward
-void	ra(t_stack **a, int *ops)
+void	ra(t_stack **a)
 {
 	t_stack	*first;
 
@@ -24,12 +24,11 @@ void	ra(t_stack **a, int *ops)
 		first->next = NULL;
 		ft_lstadd_back(a, first);
 		ft_printf("ra\n");
-		(*ops)++;
 	}
 }
 
 // Rotates B forward
-void	rb(t_stack **b, int *ops)
+void	rb(t_stack **b)
 {
 	t_stack	*first;
 
@@ -40,12 +39,11 @@ void	rb(t_stack **b, int *ops)
 		first->next = NULL;
 		ft_lstadd_back(b, first);
 		ft_printf("rb\n");
-		(*ops)++;
 	}
 }
 
 // Simultaneous forward rotations
-void	rr(t_stack **a, t_stack **b, int *ops)
+void	rr(t_stack **a, t_stack **b)
 {
 	t_stack	*a_first;
 	t_stack	*b_first;
@@ -61,12 +59,11 @@ void	rr(t_stack **a, t_stack **b, int *ops)
 		b_first->next = NULL;
 		ft_lstadd_back(b, b_first);
 		ft_printf("rr\n");
-		(*ops)++;
 	}
 }
 
 // Rotates A backward
-void	rra(t_stack **a, int *ops)
+void	rra(t_stack **a)
 {
 	t_stack	*previous;
 	t_stack	*current;
@@ -84,12 +81,11 @@ void	rra(t_stack **a, int *ops)
 			previous->next = NULL;
 		ft_lstadd_front(a, current);
 		ft_printf("rra\n");
-		(*ops)++;
 	}
 }
 
 // Rotates B backward
-void	rrb(t_stack **b, int *ops)
+void	rrb(t_stack **b)
 {
 	t_stack	*previous;
 	t_stack	*current;
@@ -107,6 +103,5 @@ void	rrb(t_stack **b, int *ops)
 			previous->next = NULL;
 		ft_lstadd_front(b, current);
 		ft_printf("rrb\n");
-		(*ops)++;
 	}
 }

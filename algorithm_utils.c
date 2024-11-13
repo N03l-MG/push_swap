@@ -6,7 +6,7 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:57:42 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/08 13:33:26 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:50:30 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ bool	is_sorted(t_stack *a)
 	return (true);
 }
 
-void	simple_sort(t_stack **a, int *ops)
+void	simple_sort(t_stack **a)
 {
 	t_stack	*maximum;
 
 	maximum = find_max(*a);
 	if (maximum == *a)
-		ra(a, ops);
+		ra(a);
 	else if ((*a)->next == maximum)
-		rra(a, ops);
+		rra(a);
 	if (*((int *)(*a)->content) > *((int *)(*a)->next->content))
-		sa(a, ops);
+		sa(a);
 }
 
 t_stack	*find_max(t_stack *stack)

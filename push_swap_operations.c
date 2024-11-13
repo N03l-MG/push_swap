@@ -6,14 +6,14 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 13:05:59 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/06 16:48:16 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:46:28 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 // Swaps first two in A
-void	sa(t_stack **a, int *ops)
+void	sa(t_stack **a)
 {
 	t_stack	*first;
 	t_stack	*second;
@@ -26,12 +26,11 @@ void	sa(t_stack **a, int *ops)
 		second->next = first;
 		*a = second;
 		ft_printf("sa\n");
-		(*ops)++;
 	}
 }
 
 // Swaps first two in B (UNUSED)
-void	sb(t_stack **b, int *ops)
+void	sb(t_stack **b)
 {
 	t_stack	*first;
 	t_stack	*second;
@@ -44,12 +43,11 @@ void	sb(t_stack **b, int *ops)
 		second->next = first;
 		*b = second;
 		ft_printf("sb\n");
-		(*ops)++;
 	}
 }
 
 // Swaps first two in A and B simultaneously (UNUSED)
-void	ss(t_stack **a, t_stack **b, int *ops)
+void	ss(t_stack **a, t_stack **b)
 {
 	t_stack	*first;
 	t_stack	*second;
@@ -67,12 +65,11 @@ void	ss(t_stack **a, t_stack **b, int *ops)
 		second->next = first;
 		*b = second;
 		ft_printf("ss\n");
-		(*ops)++;
 	}
 }
 
 // Pushes first element from B to A
-void	pa(t_stack **a, t_stack **b, int *ops)
+void	pa(t_stack **a, t_stack **b)
 {
 	t_stack	*first;
 
@@ -83,12 +80,11 @@ void	pa(t_stack **a, t_stack **b, int *ops)
 		first->next = *a;
 		*a = first;
 		ft_printf("pa\n");
-		(*ops)++;
 	}
 }
 
 // Pushes first element from A to B
-void	pb(t_stack **a, t_stack **b, int *ops)
+void	pb(t_stack **a, t_stack **b)
 {
 	t_stack	*first;
 
@@ -99,6 +95,5 @@ void	pb(t_stack **a, t_stack **b, int *ops)
 		first->next = *b;
 		*b = first;
 		ft_printf("pb\n");
-		(*ops)++;
 	}
 }

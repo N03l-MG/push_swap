@@ -6,25 +6,23 @@
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:49:47 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/08 18:53:46 by nmonzon          ###   ########.fr       */
+/*   Updated: 2024/11/13 17:59:22 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_strcmp(char *s1, char *s2);
-
 int	main(int argc, char *argv[])
 {
 	t_stack		*a;
 	t_stack		*b;
-	int			ops;
 
 	a = NULL;
 	b = NULL;
-	ops = 0;
-	if (argc == 1 || (argc == 2 && (!argv[1] || !ft_strcmp(argv[1], ""))))
+	if (argc == 1)
 		return (1);
+	if (argc == 2 && ft_strlen(argv[1]) == 0)
+		handle_error(&a, &b);
 	if (argc == 2)
 		parse_input(ft_split(argv[1], ' '), &a, true);
 	else
@@ -32,31 +30,12 @@ int	main(int argc, char *argv[])
 	if (!is_sorted(a))
 	{
 		if (ft_lstsize(a) == 2)
-			sa(&a, &ops);
+			sa(&a);
 		else if (ft_lstsize(a) == 3)
-			simple_sort(&a, &ops);
+			simple_sort(&a);
 		else
-			turk_sort(&a, &b, &ops);
+			turk_sort(&a, &b);
 	}
 	clear_stack(&a);
 	return (0);
-}
-
-static int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-	int	ret;
-
-	i = 0;
-	ret = 0;
-	while (s1[i] != '\0' && s2[i] != '\0')
-	{
-		ret = s1[i] - s2[i];
-		if (ret != 0)
-			break ;
-		i++;
-	}
-	if (s1[i] == '\0' || s2[i] == '\0')
-		ret = s1[i] - s2[i];
-	return (ret);
 }
