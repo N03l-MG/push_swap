@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "push_swap.h"
 
 static void	execute_instructions(t_stack **a, t_stack **b);
 static void	execute_instruction(t_stack **a, t_stack **b, char *instruction);

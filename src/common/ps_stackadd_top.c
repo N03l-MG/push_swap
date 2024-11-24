@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmonzon <nmonzon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 14:17:08 by nmonzon           #+#    #+#             */
-/*   Updated: 2024/11/11 14:34:02 by nmonzon          ###   ########.fr       */
+/*   Created: 2024/10/18 12:37:08 by nmonzon           #+#    #+#             */
+/*   Updated: 2024/11/04 11:15:25 by nmonzon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	clear_stack(t_stack **stack)
+void	ps_stackadd_top(t_stack **lst, t_stack *new)
 {
+	t_stack	*previous;
 	t_stack	*current;
-	t_stack	*next;
 
-	if (!stack || !*stack)
+	if (!*lst)
+	{
+		*lst = new;
 		return ;
-	current = *stack;
+	}
+	current = *lst;
+	previous = NULL;
 	while (current)
 	{
-		next = current->next;
-		free(current->content);
-		free(current);
-		current = next;
+		previous = current;
+		current = current->next;
 	}
-	*stack = NULL;
-}
-
-void	handle_error(t_stack **a, t_stack **b)
-{
-	if (a && *a)
-		clear_stack(a);
-	if (b && *b)
-		clear_stack(b);
-	write(2, "Error\n", 6);
-	exit(1);
+	previous->next = new;
 }

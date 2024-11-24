@@ -12,17 +12,6 @@
 
 #include "push_swap.h"
 
-bool	is_sorted(t_stack *a)
-{
-	while (a && a->next)
-	{
-		if (*((int *)a->content) > *((int *)a->next->content))
-			return (false);
-		a = a->next;
-	}
-	return (true);
-}
-
 void	simple_sort(t_stack **a)
 {
 	t_stack	*maximum;

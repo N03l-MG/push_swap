@@ -34,14 +34,14 @@ void	parse_input(char **strings, t_stack **a, bool was_malloced)
 		}
 		value = ft_atoi(strings[i]);
 		check_duplicate(a, value, strings, was_malloced);
-		new = ft_lstnew(malloc(sizeof(int)));
+		new = ps_stacktnew(malloc(sizeof(int)));
 		if (!new)
 		{
 			free_strings(strings, was_malloced);
 			handle_error(a, NULL);
 		}
 		*((int *)new->content) = value;
-		ft_lstadd_back(a, new);
+		ps_stackadd_top(a, new);
 		i++;
 	}
 	free_strings(strings, was_malloced);

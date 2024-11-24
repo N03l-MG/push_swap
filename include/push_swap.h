@@ -15,6 +15,23 @@
 
 # include "libft/libft.h"
 
+typedef struct s_stack
+{
+	void			*content;
+	unsigned int	index;
+	int				cost;
+	bool			over_median;
+	bool			cheapest;
+	struct s_stack	*target;
+	struct s_stack	*next;
+}					t_stack;
+
+// Stack manipulation (adapted from libft lst functions)
+t_stack	*ps_stacktnew(void *content);
+int		ps_stacksize(t_stack *lst);
+void	ps_stackadd_top(t_stack **lst, t_stack *new);
+void	ps_stackadd_bottom(t_stack **lst, t_stack *new);
+
 // Operations
 void	sa(t_stack **a);
 void	sb(t_stack **b);
