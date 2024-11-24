@@ -63,7 +63,7 @@ void	assign_index(t_stack *stack)
 	unsigned int	median_index;
 
 	i = 0;
-	median_index = ft_lstsize(stack) / 2;
+	median_index = ps_stacksize(stack) / 2;
 	while (stack)
 	{
 		stack->index = i;

@@ -33,9 +33,9 @@ int	main(int argc, char *argv[])
 		parse_input(argv + 1, &a, false);
 	execute_instructions(&a, &b);
 	if (is_sorted(a))
-		ft_printf("OK\n");
+		ft_fprintf(1, "OK\n");
 	else
-		ft_printf("KO\n");
+		ft_fprintf(1, "KO\n");
 	clear_stack(&a);
 	return (0);
 }

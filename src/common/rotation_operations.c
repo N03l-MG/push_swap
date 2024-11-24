@@ -23,7 +23,7 @@ void	ra(t_stack **a)
 		*a = first->next;
 		first->next = NULL;
 		ps_stackadd_top(a, first);
-		ft_printf("ra\n");
+		ft_fprintf(1, "ra\n");
 	}
 }
 
@@ -38,7 +38,7 @@ void	rb(t_stack **b)
 		*b = first->next;
 		first->next = NULL;
 		ps_stackadd_top(b, first);
-		ft_printf("rb\n");
+		ft_fprintf(1, "rb\n");
 	}
 }
 
@@ -58,7 +58,7 @@ void	rr(t_stack **a, t_stack **b)
 		*b = b_first->next;
 		b_first->next = NULL;
 		ps_stackadd_top(b, b_first);
-		ft_printf("rr\n");
+		ft_fprintf(1, "rr\n");
 	}
 }
 
@@ -80,7 +80,7 @@ void	rra(t_stack **a)
 		if (previous)
 			previous->next = NULL;
 		ps_stackadd_bottom(a, current);
-		ft_printf("rra\n");
+		ft_fprintf(1, "rra\n");
 	}
 }
 
@@ -102,6 +102,6 @@ void	rrb(t_stack **b)
 		if (previous)
 			previous->next = NULL;
 		ps_stackadd_bottom(b, current);
-		ft_printf("rrb\n");
+		ft_fprintf(1, "rrb\n");
 	}
 }

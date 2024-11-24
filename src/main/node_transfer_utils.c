@@ -19,8 +19,8 @@ void	find_shift_cost(t_stack *a, t_stack *b)
 	int	a_size;
 	int	b_size;
 
-	a_size = ft_lstsize(a);
-	b_size = ft_lstsize(b);
+	a_size = ps_stacksize(a);
+	b_size = ps_stacksize(b);
 	while (a)
 	{
 		a->cost = calculate_node_cost(a, a_size, b_size);

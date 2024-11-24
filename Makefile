@@ -14,7 +14,7 @@
 NAME = push_swap
 BONUS = checker
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -Iinclude
 
 ################################################################################
 ###############                     DIRECTORIES                  ###############
@@ -35,6 +35,10 @@ MAIN_SRC = main_push_swap.c sorting.c algorithm_utils.c node_transfer_utils.c \
 BONUS_SRC = checker_bonus.c
 COMMON_SRC = parsing.c check_utils.c push_swap_operations.c rotation_operations.c \
 			 seal.c ps_stacknew.c ps_stacksize.c ps_stackadd_top.c ps_stackadd_bottom.c
+
+MAIN_SRC := $(addprefix $(MAIN_DIR)/, $(MAIN_SRC))
+BONUS_SRC := $(addprefix $(BONUS_DIR)/, $(BONUS_SRC))
+COMMON_SRC := $(addprefix $(COMMON_DIR)/, $(COMMON_SRC))
 
 MAIN_OBJ = $(MAIN_SRC:.c=.o)
 BONUS_OBJ = $(BONUS_SRC:.c=.o)

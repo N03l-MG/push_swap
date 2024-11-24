@@ -47,6 +47,6 @@ void	handle_error(t_stack **a, t_stack **b)
 		clear_stack(a);
 	if (b && *b)
 		clear_stack(b);
-	write(2, "Error\n", 6);
+	ft_fprintf(1, "Error\n");
 	exit(1);
 }

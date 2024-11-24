@@ -19,11 +19,11 @@ static void	find_return_target(t_stack *a, t_stack *b);
 
 void	turk_sort(t_stack **a, t_stack **b)
 {
-	if (ft_lstsize(*a) > 3 && !is_sorted(*a))
+	if (ps_stacksize(*a) > 3 && !is_sorted(*a))
 		pb(a, b);
-	if (ft_lstsize(*a) > 3 && !is_sorted(*a))
+	if (ps_stacksize(*a) > 3 && !is_sorted(*a))
 		pb(a, b);
-	while (ft_lstsize(*a) > 3 && !is_sorted(*a))
+	while (ps_stacksize(*a) > 3 && !is_sorted(*a))
 	{
 		assign_index(*a);
 		assign_index(*b);

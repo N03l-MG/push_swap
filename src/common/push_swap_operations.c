@@ -25,7 +25,7 @@ void	sa(t_stack **a)
 		first->next = second->next;
 		second->next = first;
 		*a = second;
-		ft_printf("sa\n");
+		ft_fprintf(1, "sa\n");
 	}
 }
 
@@ -42,7 +42,7 @@ void	sb(t_stack **b)
 		first->next = second->next;
 		second->next = first;
 		*b = second;
-		ft_printf("sb\n");
+		ft_fprintf(1, "sb\n");
 	}
 }
 
@@ -64,7 +64,7 @@ void	ss(t_stack **a, t_stack **b)
 		first->next = second->next;
 		second->next = first;
 		*b = second;
-		ft_printf("ss\n");
+		ft_fprintf(1, "ss\n");
 	}
 }
 
@@ -79,7 +79,7 @@ void	pa(t_stack **a, t_stack **b)
 		*b = (*b)->next;
 		first->next = *a;
 		*a = first;
-		ft_printf("pa\n");
+		ft_fprintf(1, "pa\n");
 	}
 }
 
@@ -94,6 +94,6 @@ void	pb(t_stack **a, t_stack **b)
 		*a = (*a)->next;
 		first->next = *b;
 		*b = first;
-		ft_printf("pb\n");
+		ft_fprintf(1, "pb\n");
 	}
 }

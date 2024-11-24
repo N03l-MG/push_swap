@@ -29,9 +29,9 @@ int	main(int argc, char *argv[])
 		parse_input(argv + 1, &a, false);
 	if (!is_sorted(a))
 	{
-		if (ft_lstsize(a) == 2)
+		if (ps_stacksize(a) == 2)
 			sa(&a);
-		else if (ft_lstsize(a) == 3)
+		else if (ps_stacksize(a) == 3)
 			simple_sort(&a);
 		else
 			turk_sort(&a, &b);
