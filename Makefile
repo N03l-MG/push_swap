@@ -13,7 +13,7 @@
 
 NAME = push_swap
 BONUS = checker
-CC = gcc
+CC = cc
 FLAGS = -Wall -Wextra -Werror -Iinclude
 
 ################################################################################
