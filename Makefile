@@ -3,7 +3,7 @@
 #                                    MAKEFILE                                  #
 # Project:     push_swap                                                       #
 # Created:     01/11/2024                                                      #
-# Author:      Noel Monzon (nmonzon)                                           #
+# Author:      kixk                                                            #
 #                                                                              #
 ################################################################################
 
